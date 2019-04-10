@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico">
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link href="/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+    <link href="/lib/Hui-iconfont/1.0.6/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/skin/default/skin.css" rel="stylesheet" type="text/css" id="skin" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>博客管理后台</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+<body>
+<header class="Hui-header cl">
+    <a class="Hui-logo l" href="/">博客</a>  <span class="Hui-subtitle l">管理后台</span>
+    <ul class="Hui-userbar">
+        <li>超级管理员</li>
+        <li class="dropDown dropDown_hover">
+            <a href="#" class="dropDown_A" th:text="${userName}">UserName <i class="Hui-iconfont">&#xe6d5;</i></a>
+            <ul class="dropDown-menu radius box-shadow">
+                <li><a href="javascript:;" onclick="modify_pwd('修改密码','/Home/ModifyPwd')">修改密码</a></li>
+                <li><a href="/Home/Logout">退出</a></li>
+            </ul>
+        </li>
+    </ul>
+    <a href="javascript:;" class="Hui-nav-toggle Hui-iconfont" aria-hidden="false">&#xe667;</a>
+</header>
+<aside class="Hui-aside">
+    <input runat="server" id="divScrollValue" type="hidden" value="" />
+    <div class="menu_dropdown bk_2">
+
+
+        <dl id="menu-product">
+            <dt><i class="Hui-iconfont">&#xe620;</i> 博客管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="/Article/Index" data-title="文章列表" href="javascript:void(0)">文章列表</a></li>
+                    <li><a _href="/Comment/Index" data-title="评论列表" href="javascript:void(0)">评论列表</a></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <dl id="menu-sms">
+            <dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="/User/Index" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont">&#xe616;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="/Report/Read" data-title="文章浏览统计" href="javascript:void(0)">文章浏览统计</a></li>
+                    <li><a _href="/Report/Publish" data-title="文章发表统计" href="javascript:void(0)">文章发表统计</a></li>
+                </ul>
+            </dd>
+        </dl>
+
+    </div>
+</aside>
+<div class="dislpayArrow"><a class="pngfix" href="javascript:void(0);" onclick="displaynavbar(this)"></a></div>
+<section class="Hui-article-box">
+    <div id="Hui-tabNav" class="Hui-tabNav">
+        <div class="Hui-tabNav-wp">
+            <ul id="min_title_list" class="acrossTab cl">
+                <li class="active"><span title="管理后台首页" data-href="/Home/Welcome">管理后台首页</span><em></em></li>
+            </ul>
+        </div>
+        <div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
+    </div>
+    <div id="iframe_box" class="Hui-article">
+        <div class="show_iframe">
+            <div style="display:none" class="loading"></div>
+            <iframe scrolling="yes" frameborder="0" src="/Home/Welcome"></iframe>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="/js/H-ui.js"></script>
+<script type="text/javascript" src="/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    /*修改密码*/
+    function modify_pwd(title, url) {
+        layer_show(title, url, 480, 320);
+    }
+    /*资讯-添加*/
+    function article_add(title, url) {
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*图片-添加*/
+    function picture_add(title, url) {
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*产品-添加*/
+    function product_add(title, url) {
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*用户-添加*/
+    function member_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+</script>
+</body>
+</html>

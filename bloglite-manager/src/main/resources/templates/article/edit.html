@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="shared/layout::head">
+</head>
+<body>
+<div class="pd-20">
+    <form action="/Article/Save" method="post" class="form form-horizontal" id="form-article-add">
+        <input id="mode" name="mode" type="hidden" th:value="${mode}">
+        <input id="aid" name="aid" type="hidden" th:value="${article.aid}">
+        <div class="row cl">
+            <label class="form-label col-2">标题：</label>
+            <div class="formControls col-4">
+                <input type="text" class="input-text" th:value="${article.title}" placeholder="" id="title" name="title" datatype="*1-50" nullmsg="必填">
+            </div>
+            <div class="col-4"> 50个字符以内</div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-2">作者：</label>
+            <div class="formControls col-4">
+                <input type="text" class="input-text" th:value="${article.authorName}" placeholder="" id="authorName" name="authorName" datatype="*2-80" nullmsg="必填">
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-2">标签：</label>
+            <div class="formControls col-4">
+                <input type="text" class="input-text" th:value="${article.tag}" placeholder="" id="tag" name="tag" datatype="*0-100" nullmsg="不能为空">
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-2">摘要：</label>
+            <div class="formControls col-6">
+                <textarea class="textarea" id="abztract" name="abztract" datatype="*1-2000" th:text="${article.abztract}" nullmsg="必填">abstract</textarea>
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-2">内容：</label>
+            <div class="formControls col-6">
+                <textarea class="textarea" style="height:600px;" id="content" name="content" datatype="*1-20000" th:text="${article.content}" nullmsg="必填">content</textarea>
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <div class="col-10 col-offset-2">
+                <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="shared/layout :: script"></div>
+<script type="text/javascript" src="/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-article-add").Validform({
+            tiptype: 2,
+            ajaxPost: true,
+            callback: function (data) {
+                if (data.status == "y") {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
